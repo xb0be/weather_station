@@ -1,5 +1,5 @@
-# weather_station
-Analyze weather station signal
+# Analyzing weather station signal
+
 
 This is my very first RTLSDR project. I watched some cool videos about what can be done with RTLSDR dongle and decided to buy one and try it out. Only after I installed and tested it, I realized that father has weather station, which gets data over the air from reciever, installed in the back of the house. Time to start analyzing :)
 
