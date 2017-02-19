@@ -1,0 +1,31 @@
+Part 2: Investigate how rtl_433 works
+
+
+Used tools:
+- rtl_433 source code
+- Arduino
+
+
+Links:
+- rtl_433: https://github.com/merbanan/rtl_433 (by Benjamin Larsson aka "merbanan")
+- Arduino: https://www.arduino.cc
+
+
+Agenda:
+1. Examine rtl_433 source code
+2. "Reproduce" signal with Arduino
+
+
+Our "decoded" string:
+00010101 01001111 00100000 01001010 1011
+
+String from rtl_433:
+00010101 01000111 00100000 01101010 0111
+
+This represents data, as shown on weather station:
+2017-02-18 15:59:47 :   AlectoV1 Temperature Sensor
+        House Code:      168
+        Channel:         1
+        Battery:         OK
+        Temperature:     7.80 C
+        Humidity:        56 %
