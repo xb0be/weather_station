@@ -1,0 +1,45 @@
+Part 1: Analyzing and decoding signal
+
+
+Used tools:
+- RTL-SDR dongle
+- Alecto weather station
+- Software used: gqrx, Audacity, rtl_433
+
+
+Agenda:
+1. Verify with gqrx that there is weather station on 433 MHz
+2. Save signal to wav file
+3. Examine wav file with Audacity
+4. Explain how to decode bits
+5. Verify with rtl_433 that we're on the right track
+
+
+Our "decoded" string:
+00010101 01001111 00100000 01001010 1011
+
+String from rtl_433:
+00010101 01000111 00100000 01101010 0111
+
+
+$ rtl_433 -a
+...
+[00] {0} : 
+[01] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[02] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[03] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[04] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[05] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[06] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[07] {36} 15 47 20 6a 70 : 00010101 01000111 00100000 01101010 0111
+[08] {27} 15 47 20 60 : 00010101 01000111 00100000 011
+
+
+$ rtl_433
+...
+2017-02-18 15:59:47 :   AlectoV1 Temperature Sensor
+        House Code:      168
+        Channel:         1
+        Battery:         OK
+        Temperature:     7.80 C
+        Humidity:        56 %
