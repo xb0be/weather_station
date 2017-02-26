@@ -7,6 +7,7 @@ Used tools:
 
 
 Links:
+- http://www.tfd.hu/tfdhu/files/wsprotocol/auriol_protocol_v20.pdf
 - rtl_433: https://github.com/merbanan/rtl_433 (by Benjamin Larsson aka "merbanan")
 - Arduino: https://www.arduino.cc
 
@@ -22,6 +23,9 @@ Our "decoded" string:
 String from rtl_433:
 00010101 01000111 00100000 01101010 0111
 
+*Note:* data is represented in LSB, meaning, we have to reverse bits, 
+before we can operate with them!
+
 This represents data, as shown on weather station:
 2017-02-18 15:59:47 :   AlectoV1 Temperature Sensor
         House Code:      168
@@ -29,3 +33,9 @@ This represents data, as shown on weather station:
         Battery:         OK
         Temperature:     7.80 C
         Humidity:        56 %
+
+
+Let's calculate humidity (it is BCD encoded):
+Reverse bits, then ((x & 0xF0) >> 4) * 10 + (x & 0x0F):
+- rtl_433 4th byte: 01010110 = 5 * 10 + 6 = 56 (check)
+- our decoded str.: 01010010 = 5 * 10 + 2 = 52 (hmmm, but OK :)
