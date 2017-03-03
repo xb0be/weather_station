@@ -131,3 +131,12 @@ bitbuffer:: Number of rows: 9
 [07] {36} e5 07 e0 1a 30 : 11100101 00000111 11100000 00011010 0011
 [08] {21} e5 07 e0 : 11100101 00000111 11100
 
+
+2017-03-03 17:09:37 :   AlectoV1 Temperature Sensor
+        House Code:      167
+        Channel:         1
+        Battery:         OK
+        Temperature:     19.00 C
+        Humidity:        75 %
+
+
