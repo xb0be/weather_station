@@ -18,7 +18,7 @@ Agenda:
 
 
 Our "decoded" string:
-00010101 01001111 00100000 01001010 1011
+00010101 01001111 00100000 01101010 1011
 
 String from rtl_433:
 00010101 01000111 00100000 01101010 0111
@@ -37,5 +37,4 @@ This represents data, as shown on weather station:
 
 Let's calculate humidity (it is BCD encoded):
 Reverse bits, then ((x & 0xF0) >> 4) * 10 + (x & 0x0F):
-- rtl_433 4th byte: 01010110 = 5 * 10 + 6 = 56 (check)
-- our decoded str.: 01010010 = 5 * 10 + 2 = 52 (hmmm, but OK :)
+- 4th byte is: 01010110 = 5 * 10 + 6 = 56 (check)
