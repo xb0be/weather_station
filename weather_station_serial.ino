@@ -12,9 +12,6 @@ Let's reproduce this with Arduino.
 const int buttonPin = 2;
 int buttonState = 0;
 
-#include <RCSwitch.h>
-  RCSwitch mySwitch = RCSwitch();
-
 // Let's define data like we captured it
 const uint8_t data [] = {             // coresponds to bb[i][j] in alecto.c
     B00010101, B00000100, B00100000, B00001001
@@ -23,10 +20,6 @@ const uint8_t data [] = {             // coresponds to bb[i][j] in alecto.c
 void setup() {
   pinMode(buttonPin, INPUT);
   Serial.begin(9600);
-  mySwitch.enableTransmit(10);
-  mySwitch.setProtocol(1);
-  mySwitch.setRepeatTransmit(1);
-  mySwitch.setPulseLength(690);
 }
 
 // Helper funcions - copied from rtl_433 source (big thanks for new knowledge ;)
