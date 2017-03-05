@@ -34,7 +34,7 @@ unsigned long csum = 0B1000;
 #define DATA_LOW_0 2000 
 #define DATA_LOW_1 4000 
 #define WAIT 8800
-const int buttonPin = 2;                // button to begin sending signal
+int buttonPin = 2;                      // button to begin sending signal
 int buttonState = 0;
 
 void setup() {
@@ -66,8 +66,8 @@ void send_data(unsigned long code) {
 }                                       // end proc
 
 void send_csum(unsigned long c){
-  for (int j=0; j<4; j++) {             //send all 4 bits + "0" at the end
-    PORTD = PORTD | B00001000;          // D3 high - "1"
+  for (int j=0; j<4; j++) {             //send all 4 bits of checksum
+    PORTD = PORTD | B00001000;          // D3 high
     delayMicroseconds(DATA_HIGH);
     PORTD = PORTD & B11110111;          // D3 low
     if (c & 0x8) {                      //get the current bit by masking all but the MSB
@@ -89,11 +89,11 @@ void loop() {
     for (int k = 0; k<8; k++) {        // send DATA and delay between them 8 times
       send_data(RFcode);
       send_csum(csum);                 // send checksum
-      PORTD = PORTD | B00001000;       // Additional "0" at the end
+      PORTD = PORTD | B00001000;       // send additional "0" at the end
       delayMicroseconds(DATA_HIGH);
       PORTD = PORTD & B11110111;
       delayMicroseconds(WAIT);         // send delay between two bursts
-    }
+    }                                  // end for
   }                                    // end if
 }                                      // end loop
 
