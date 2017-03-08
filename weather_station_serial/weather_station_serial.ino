@@ -1,28 +1,40 @@
 /*
-Sample data, captured on 5.2.2017:
+Captured data:
 $ rtl_433 -D -A -R 16
-00010101 00000100 00100000 00001001 0111 => ALL OK!
-Should be:
-        Temperature:     6.60 C
-        Humidity:        90 %
+00010101 01000111 00100000 01101010 0111
+should be:
+        Humidity:        56 %
+        Temperature:     7.80 C
         Chekcsum:        0111
 Let's reproduce this with Arduino.
+
+And the other one:
+11100101 00000011 10100000 00100001 1000
+should be:
+        Humidity:        84 %
+        Temperature:     9.20 C
+        Chekcsum:        0111
 */
 
 const int buttonPin = 2;
 int buttonState = 0;
 
-// Let's define data like we captured it
+// Let's define data like we captured it - example 1
 const uint8_t data [] = {             // coresponds to bb[i][j] in alecto.c
-    B00010101, B00000100, B00100000, B00001001
+    B00010101, B01000111, B00100000, B01101010
 };
+
+// Let's define data like we captured it - example 2
+//const uint8_t data [] = {             // coresponds to bb[i][j] in alecto.c
+//    B11100101, B00000011, B10100000, B00100001
+//};
 
 void setup() {
   pinMode(buttonPin, INPUT);
   Serial.begin(9600);
 }
 
-// Helper funcions - copied from rtl_433 source (big thanks for new knowledge ;)
+// Helper funcions - copied from rtl_433 source (thanks for new knowledge ;)
 uint8_t bcd_decode8(uint8_t x) {
   return ((x & 0xF0) >> 4) * 10 + (x & 0x0F);
 }
@@ -54,11 +66,12 @@ void loop() {
 /*  - calculate humidity and temperature
     - calculate checksum
     - put together all bits and checksum
-    - send via 433 transmiter and (fingerscrossed)
+    - send via 433 MHz transmiter and (fingerscrossed)
 */
 
 buttonState = digitalRead(buttonPin);
 if (buttonState == HIGH) {
+  delay(300);
   calc_humidity_temp();                // call function to calculate humidity and temperature
 
   uint8_t csum = 0;                    // calculate checksum
@@ -90,9 +103,9 @@ if (buttonState == HIGH) {
     str_to_send += tmp_str[j];
   }
 
-  String add_csum = "";               // init checksum
+  String add_csum = "";             // init checksum
 
-  for (int i = 3; i >= 0; i--) {      // this is only 4 bits long
+  for (int i = 3; i >= 0; i--) {    // this is only 4 bits long
     if (bitRead(csum, i) == 0) {    // again, use bitRead to verify all bits
       add_csum += "0";              // and add appropriate bit to the final string
     }
