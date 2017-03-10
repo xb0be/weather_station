@@ -10,7 +10,7 @@ Links:
 - Arduino: https://www.arduino.cc
 
 Agenda:
-1. Examine rtl_433 source code
+1. Examine rtl_433 source code (alecto.c)
 2. Reproduce signal with Arduino and send it to Serial monitor
 
 Our decoded string:
