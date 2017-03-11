@@ -25,15 +25,16 @@ which means:
   Humidity:        84 %
 */
 
-unsigned long RFcode = 0B11100101000000111010000000100001;
-unsigned long csum = 0B1000;
+// since we have 36 bits alltogether, let's split this into 2 constants
+unsigned long RFcode = 0B11100101000000111010000000100001;  // DATA
+unsigned int csum = 0B1000;                                 // Checksum
 
 // timings measured from captured signal in Audacity
-#define SYNC_TIME 9000
 #define DATA_HIGH 500
-#define DATA_LOW_0 2000 
-#define DATA_LOW_1 4000 
-#define WAIT 8800
+#define DATA_LOW_0 2000
+#define DATA_LOW_1 4000
+#define SYNC_TIME 9000
+#define WAIT SYNC_TIME
 int buttonPin = 2;                      // button to begin sending signal
 int buttonState = 0;
 
@@ -55,7 +56,7 @@ void send_data(unsigned long code) {
       PORTD = PORTD | B00001000;        // D3 high
       delayMicroseconds(DATA_HIGH);
       PORTD = PORTD & B11110111;        // D3 low
-      if (code & 0x80000000) {          // get the current bit by masking all but the MSB
+      if (code & 0x80000000) {          // get the current bit by masking all but the most left one
         delayMicroseconds(DATA_LOW_1);  // if it is "1", we should wait DATA_LOW_1
       }
       else {

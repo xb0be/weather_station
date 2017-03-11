@@ -21,7 +21,7 @@ int buttonState = 0;
 
 // Let's define data like we captured it - example 1
 const uint8_t data [] = {             // coresponds to bb[i][j] in alecto.c
-    B00010101, B01000111, B00100000, B01101010
+    B11100101, B00000011, B10100000, B00100001
 };
 
 // Let's define data like we captured it - example 2
